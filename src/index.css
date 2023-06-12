@@ -680,6 +680,16 @@ main a {
   list-style: none;
 }
 
+.char__images a{
+  margin: 1rem;
+}
+
+.char__images a:hover{
+  transform: scale(1.05);
+  transition: 0.5s;
+
+}
+
 .characters .char__images .char__h3 {
   text-align: center;
   margin-top: .1875rem;
