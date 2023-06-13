@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Paginacion from '../components/Paginacion'
 import { Link } from 'react-router-dom'
+import { isInteger } from 'formik';
 
 
 const Characters = () => {
@@ -8,6 +9,7 @@ const Characters = () => {
     const [hairColor, setHairColor] = useState('');
     const [gender, setGender] = useState('');
     const [personajes, setPersonajes] = useState([])
+
     useEffect(() => {
         const headers = {
             'Accept': 'application/json',
@@ -42,39 +44,53 @@ const Characters = () => {
         }
         else {
             fetch('https://bobsburgers-api.herokuapp.com/characters', { headers: headers })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                setPersonajes(data)
-            }
-            )
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    setPersonajes(data)
+                }
+                )
         }
 
         console.log(personajes)
     }, [gender, hairColor])
 
+    //personajes por pagina
     const itemsPerPage = 20;
+
+    //conversion a numero porque sino suma 11 / página 0 por si acaso no hubiese nada en el storage
+    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("currentPage")) || 0)
+
+    //calculo primera pagina
+    const firstIndex = currentPage * itemsPerPage;
+    //splice desde el principio y por itemsPerPage(20)
+    const [items, setItems] = useState([...personajes].splice(firstIndex, itemsPerPage))
+    console.log("CurrentPage " + currentPage)
+
     useEffect(() => {
-        setItems([...personajes].splice(0, itemsPerPage))
+        const firstIndex = currentPage * itemsPerPage;
+        setItems([...personajes].splice(firstIndex, itemsPerPage))
     }, [personajes])
-
-    const [items, setItems] = useState([...personajes].splice(0, itemsPerPage))
-
-    const [currentPage, setCurrentPage] = useState(0);
-
 
 
     const nextHandler = () => {
+        console.log("Next")
         const totalItems = personajes.length;
 
         const nextPage = currentPage + 1;
-
+        console.log("NextPage " + nextPage);
         const firstIndex = nextPage * itemsPerPage;
 
-        if (firstIndex === totalItems) return;
+        if (firstIndex === totalItems) {
+            console.log("Limite");
+            return;
+        }
 
         setItems([...personajes].splice(firstIndex, itemsPerPage))
         setCurrentPage(nextPage)
+        //guardamos la pagina
+        window.localStorage.setItem("currentPage", nextPage)
+
     }
 
     const prevHandler = () => {
@@ -85,6 +101,8 @@ const Characters = () => {
 
         setItems([...personajes].splice(firstIndex, itemsPerPage))
         setCurrentPage(prevPage)
+        window.localStorage.setItem("currentPage", prevPage)
+
     }
 
 
@@ -121,17 +139,17 @@ const Characters = () => {
                 </select>
             </div>
             <div className='char__images'>
-               {
-                items.map((personaje) => (
-                    <Link to={`/characters/${personaje.id}`} className='char__a'>
-                        <p className='char__names'>{personaje.name}</p>
-                        <img src={`${personaje.image}`} alt="" class="paginacion_img" />
-                        <h3 className='char__h3'>{personaje.name}</h3>
-                    </Link>
-                )
-                )} 
+                {
+                    items.map((personaje) => (
+                        <Link to={`/characters/${personaje.id}`} className='char__a'>
+                            <p className='char__names'>{personaje.name}</p>
+                            <img src={`${personaje.image}`} alt="" class="paginacion_img" />
+                            <h3 className='char__h3'>{personaje.name}</h3>
+                        </Link>
+                    )
+                    )}
             </div>
-            
+
             <Paginacion currentPage={0} nextHandler={nextHandler} prevHandler={prevHandler}></Paginacion>
         </main>
     )
