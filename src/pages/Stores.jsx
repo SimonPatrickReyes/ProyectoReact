@@ -20,40 +20,47 @@ const Stores = () => {
         console.log(stores)
     }, [])
 
+    //episodios por pagina
     const itemsPerPage = 20;
+
+    const [currentPage, setCurrentPage] = useState(
+      parseInt(localStorage.getItem('storesCurrentPage')) || 0
+    );
+  
+    const firstIndex = currentPage * itemsPerPage;
+    const [items, setItems] = useState([...stores].splice(firstIndex, itemsPerPage));
+  
     useEffect(() => {
-        setItems([...stores].splice(0, itemsPerPage))
-    }, [stores])
-
-    const [items, setItems] = useState([...stores].splice(0, itemsPerPage))
-
-    const [currentPage, setCurrentPage] = useState(0);
-
-
-
+      const firstIndex = currentPage * itemsPerPage;
+      setItems([...stores].splice(firstIndex, itemsPerPage));
+    }, [stores, currentPage]);
+  
     const nextHandler = () => {
-        const totalItems = stores.length;
-
-        const nextPage = currentPage + 1;
-
-        const firstIndex = nextPage * itemsPerPage;
-
-        if (firstIndex === totalItems) return;
-
-        setItems([...stores].splice(firstIndex, itemsPerPage))
-        setCurrentPage(nextPage)
-    }
-
+      const totalItems = stores.length;
+      const nextPage = currentPage + 1;
+  
+      if (nextPage * itemsPerPage >= totalItems) {
+        console.log('Limit reached');
+        return;
+      }
+  
+      setItems([...stores].splice(nextPage * itemsPerPage, itemsPerPage));
+      setCurrentPage(nextPage);
+  
+      
+      window.localStorage.setItem('storesCurrentPage', nextPage);
+    };
+  
     const prevHandler = () => {
-        const prevPage = currentPage - 1;
-        if (prevPage < 0) return;
-
-        const firstIndex = prevPage * itemsPerPage;
-
-        setItems([...stores].splice(firstIndex, itemsPerPage))
-        setCurrentPage(prevPage)
-    }
-
+      const prevPage = currentPage - 1;
+      if (prevPage < 0) return;
+  
+      setItems([...stores].splice(prevPage * itemsPerPage, itemsPerPage));
+      setCurrentPage(prevPage);
+  
+    
+      window.localStorage.setItem('storesCurrentPage', prevPage);
+    };
 
     return (
         <main className='characters'>

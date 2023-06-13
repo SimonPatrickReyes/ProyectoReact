@@ -20,54 +20,59 @@ const Episodes = () => {
                 }
                 )
         }
-   
+
         else {
             fetch('https://bobsburgers-api.herokuapp.com/episodes', { headers: headers })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                setEpisodes(data)
-            }
-            )
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    setEpisodes(data)
+                }
+                )
         }
 
         console.log(episodes)
     }, [season])
 
+    //episodios por pagina
     const itemsPerPage = 20;
+
+    const [currentPage, setCurrentPage] = useState(
+      parseInt(localStorage.getItem('episodesCurrentPage')) || 0
+    );
+  
+    const firstIndex = currentPage * itemsPerPage;
+    const [items, setItems] = useState([...episodes].splice(firstIndex, itemsPerPage));
+  
     useEffect(() => {
-        setItems([...episodes].splice(0, itemsPerPage))
-    }, [episodes])
-
-    const [items, setItems] = useState([...episodes].splice(0, itemsPerPage))
-
-    const [currentPage, setCurrentPage] = useState(0);
-
-
-
-
+      const firstIndex = currentPage * itemsPerPage;
+      setItems([...episodes].splice(firstIndex, itemsPerPage));
+    }, [episodes, currentPage]);
+  
     const nextHandler = () => {
-        const totalItems = episodes.length;
-
-        const nextPage = currentPage + 1;
-
-        const firstIndex = nextPage * itemsPerPage;
-
-        if (firstIndex === totalItems) return;
-
-        setItems([...episodes].splice(firstIndex, itemsPerPage))
-        setCurrentPage(nextPage)
-    }
-
+      const totalItems = episodes.length;
+      const nextPage = currentPage + 1;
+  
+      if (nextPage * itemsPerPage >= totalItems) {
+        console.log('Limit reached');
+        return;
+      }
+  
+      setItems([...episodes].splice(nextPage * itemsPerPage, itemsPerPage));
+      setCurrentPage(nextPage);
+  
+      window.localStorage.setItem('episodesCurrentPage', nextPage);
+    };
+  
     const prevHandler = () => {
-        const prevPage = currentPage - 1;
-        if (prevPage < 0) return;
-
-        const firstIndex = prevPage * itemsPerPage;
-
-        setItems([...episodes].splice(firstIndex, itemsPerPage))
-        setCurrentPage(prevPage)
-    }
+      const prevPage = currentPage - 1;
+      if (prevPage < 0) return;
+  
+      setItems([...episodes].splice(prevPage * itemsPerPage, itemsPerPage));
+      setCurrentPage(prevPage);
+  
+      window.localStorage.setItem('episodesCurrentPage', prevPage);
+    };
 
 
     return (
@@ -95,17 +100,17 @@ const Episodes = () => {
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
-                
+
 
             </div>
             <div className='char__images'>
-               {
-                items.map((episodios) => (
-                    <Link to={`/episodes/${episodios.id}`} className='episodes'>
-                        <h3 className='episode__h3'>{episodios.name}</h3>
-                    </Link>
-                )
-                )} 
+                {
+                    items.map((episodios) => (
+                        <Link to={`/episodes/${episodios.id}`} className='episodes'>
+                            <h3 className='episode__h3'>{episodios.name}</h3>
+                        </Link>
+                    )
+                    )}
             </div>
             <Paginacion currentPage={0} nextHandler={nextHandler} prevHandler={prevHandler}></Paginacion>
 

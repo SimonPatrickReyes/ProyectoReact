@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
-//importar datos de usuario
-//foto de perfil
-//favoritos
 const Profile = () => {
-    const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || [])
+  const email = localStorage.getItem('email');
+  return (
+    <div>
+      <h1>Profile</h1>
+      <p>Email: {email}</p>
+    </div>
+  );
+};
 
-    return (
-        <div>
-            Profile
-        </div>
-    )
-}
-
-export default Profile
+export default Profile;

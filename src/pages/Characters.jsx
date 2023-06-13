@@ -58,52 +58,44 @@ const Characters = () => {
     //personajes por pagina
     const itemsPerPage = 20;
 
-    //conversion a numero porque sino suma 11 / página 0 por si acaso no hubiese nada en el storage
-    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("currentPage")) || 0)
-
-    //calculo primera pagina
-    const firstIndex = currentPage * itemsPerPage;
-    //splice desde el principio y por itemsPerPage(20)
-    const [items, setItems] = useState([...personajes].splice(firstIndex, itemsPerPage))
-    console.log("CurrentPage " + currentPage)
-
-    useEffect(() => {
+    const [currentPage, setCurrentPage] = useState(
+        parseInt(localStorage.getItem('charactersCurrentPage')) || 0
+      );
+    
+      //calculo de la paginacion
+      const firstIndex = currentPage * itemsPerPage;
+      const [items, setItems] = useState([...personajes].splice(firstIndex, itemsPerPage));
+    
+      useEffect(() => {
         const firstIndex = currentPage * itemsPerPage;
-        setItems([...personajes].splice(firstIndex, itemsPerPage))
-    }, [personajes])
-
-
-    const nextHandler = () => {
-        console.log("Next")
+        setItems([...personajes].splice(firstIndex, itemsPerPage));
+      }, [personajes, currentPage]);
+    
+      const nextHandler = () => {
         const totalItems = personajes.length;
-
         const nextPage = currentPage + 1;
-        console.log("NextPage " + nextPage);
-        const firstIndex = nextPage * itemsPerPage;
-
-        if (firstIndex === totalItems) {
-            console.log("Limite");
-            return;
+    
+        if (nextPage * itemsPerPage >= totalItems) {
+          console.log('Limit reached');
+          return;
         }
-
-        setItems([...personajes].splice(firstIndex, itemsPerPage))
-        setCurrentPage(nextPage)
-        //guardamos la pagina
-        window.localStorage.setItem("currentPage", nextPage)
-
-    }
-
-    const prevHandler = () => {
+    
+        setItems([...personajes].splice(nextPage * itemsPerPage, itemsPerPage));
+        setCurrentPage(nextPage);
+    
+        // CurrentPage de Character guardado
+        window.localStorage.setItem('charactersCurrentPage', nextPage);
+      };
+    
+      const prevHandler = () => {
         const prevPage = currentPage - 1;
         if (prevPage < 0) return;
-
-        const firstIndex = prevPage * itemsPerPage;
-
-        setItems([...personajes].splice(firstIndex, itemsPerPage))
-        setCurrentPage(prevPage)
-        window.localStorage.setItem("currentPage", prevPage)
-
-    }
+    
+        setItems([...personajes].splice(prevPage * itemsPerPage, itemsPerPage));
+        setCurrentPage(prevPage);
+    
+        window.localStorage.setItem('charactersCurrentPage', prevPage);
+      };
 
 
     return (
