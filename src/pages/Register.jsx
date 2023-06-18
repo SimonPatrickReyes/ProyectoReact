@@ -4,16 +4,17 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const Register = () => {
     const [formSend, changeFormSend] = useState(false)
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || [])
-    
-    const emailEnUso =  (email) => {
+    const userPicture="/src/assets/images/userPicture.png"
+
+    const emailEnUso = (email) => {
         console.log(email)
         var usado = users.filter(user => user.email == email);
         console.log(usado)
-        if(usado.length===0){
+        if (usado.length === 0) {
             console.log("no usado")
             return false;
         }
-        else{
+        else {
             console.log("usado")
             return true;
         }
@@ -26,8 +27,9 @@ const Register = () => {
                     name: '',
                     email: '',
                     password: '',
-                    genero:'',
-                    birthDate:'',
+                    genero: '',
+                    birthDate: '',
+                    profileImage: userPicture
                 }}
 
                 validate={(valores) => {
@@ -43,7 +45,7 @@ const Register = () => {
                         errors.email = 'Write an email'
                     } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
                         errors.email = "The email can only contain letters, numbers, periods, hyphens and underscores"
-                    }  
+                    }
                     if (emailEnUso(valores.email)) {
                         errors.email = "Email already in use"
                     }
@@ -53,11 +55,11 @@ const Register = () => {
                 onSubmit={(valores, { resetForm }) => {
                     console.log('Form send');
                     changeFormSend(true);
-                    setUsers(users.push(valores));
-                    window.localStorage.setItem("users", JSON.stringify(users));
+                    const newUser = { ...valores, profileImage: userPicture };
+                    const updatedUsers = [...users, newUser];
+                    setUsers(updatedUsers);
+                    window.localStorage.setItem("users", JSON.stringify(updatedUsers));
                     resetForm();
-                    
-                   
                 }}
             >
                 {({ errors }) => (
@@ -97,13 +99,13 @@ const Register = () => {
                         <div>
                             <label htmlFor="genero">Gender</label>
                             <label>
-                                <Field type="radio" name="genero" value="M" id="M"/>Male
+                                <Field type="radio" name="genero" value="M" id="M" />Male
                             </label>
                             <label>
-                                <Field type="radio" name="genero" value="F" id="F"/>Female
+                                <Field type="radio" name="genero" value="F" id="F" />Female
                             </label>
                             <label>
-                                <Field type="radio" name="genero" value="N/S" id="N/S"/>I prefer not to answer
+                                <Field type="radio" name="genero" value="N/S" id="N/S" />I prefer not to answer
                             </label>
                         </div>
                         <div>

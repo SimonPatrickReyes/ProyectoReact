@@ -2,6 +2,8 @@ import React, { useState, useContext  } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
+import userPicture from "../assets/images/userPicture.png"
+
 
 
 const Login = () => {
@@ -43,12 +45,15 @@ const Login = () => {
 
           if (userRegistered != null) {
             setUser(true) //UserContext
+            window.localStorage.setItem("userContext",true)
             changeFormSend(true);
+            window.localStorage.setItem("user", JSON.stringify(userRegistered));
+            console.log(userRegistered)
 
-            window.localStorage.setItem("email", userRegistered.email);
-            window.localStorage.setItem("password", userRegistered.password);
             resetForm();
             navigate('/')
+            location.reload()
+
           } else {
             setFailed(true)
           }

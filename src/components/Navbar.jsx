@@ -1,6 +1,8 @@
-import { useContext } from "react";
+import { useContext,useState} from "react";
 import { UserContext } from "../contexts/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
+
+
 //----<NavLink> == <a>
 //----<NavLink to="<path-escrito-en-router/index.jsx>">
 
@@ -9,15 +11,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import login_button from "../assets/images/login_button.png";
 const Navbar = () => {
+    const [userLogged, setUserLogged] = useState(JSON.parse(localStorage.getItem('user')) || [])
     const { user, setUser } = useContext(UserContext)
 
     const navigate = useNavigate()
 
-    const cerrarSesion = () => {
-        console.log('cerrando...')
-        navigate('/login')
-        setUser(null)
-    }
+    
 
     return (
         <nav className="nav-pc">
@@ -45,11 +44,15 @@ const Navbar = () => {
 
 
             </ul>
-            <NavLink to="/login" target="_blank">
-                <img src={login_button} alt="login button" className="loginButton" />
-            </NavLink>
-
-         
+            {user ? (
+                <NavLink to="/profile" target="_blank">
+                    <img src={userLogged.profileImage} alt="default profile" className="userPicture" />
+                </NavLink>
+            ) : (
+                <NavLink to="/login" target="_blank">
+                    <img src={login_button} alt="login button" className="loginButton" />
+                </NavLink>
+            )}
         </nav>
     );
 };

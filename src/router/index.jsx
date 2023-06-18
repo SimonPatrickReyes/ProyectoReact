@@ -11,6 +11,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
+import Contact from "../pages/Contact";
 import LayoutPublic from "../layout/LayoutPublic";
 //import LayoutPrivate from "../layout/LayoutPrivate";
 
@@ -70,6 +71,11 @@ export const router = createBrowserRouter([
     {
         path: "/profile",
         element: <Profile />,
+    },
+
+    {
+        path: "/contact",
+        element: <Contact />,
     },
 
     {

@@ -35,7 +35,7 @@ const Episodes = () => {
     }, [season])
 
     //episodios por pagina
-    const itemsPerPage = 20;
+    const itemsPerPage = 50;
 
     const [currentPage, setCurrentPage] = useState(
       parseInt(localStorage.getItem('episodesCurrentPage')) || 0
@@ -112,7 +112,6 @@ const Episodes = () => {
                     )
                     )}
             </div>
-            <Paginacion currentPage={0} nextHandler={nextHandler} prevHandler={prevHandler}></Paginacion>
 
         </main>
     )
