@@ -1,12 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import favorite from "../assets/images/favorite.png";
+import { UserContext } from '../contexts/UserContext';
+import favoriteEmpty from "../assets/images/favorite.png";
 import favoriteFull from "../assets/images/favorite_full.png";
 
 
 
 const Character = () => {
     const [personaje, setPersonaje] = useState([])
+    const [favorite, setFavorite] = useState(false)
+    const { user, setUser } = useContext(UserContext)
+
+
+    useEffect(() => {
+        // Almacena el valor favorite del localStorage convertido a objeto
+        const favorite = JSON.parse(localStorage.getItem('favorite')) || []
+
+        // Detecta si el id es coincide con el id del personaje en pantalla
+        const isFavorite = favorite.find(item => item.id === personaje.id)
+
+        // Si hay favorite, este sera true
+        isFavorite ? setFavorite(true) : setFavorite(false)
+    }, [personaje])
+
+    // Añade o quita el favorito a los personajes
+    const handleFavorite = () => {
+        
+        // Misma accion del useEffect
+        const favorite = JSON.parse(localStorage.getItem('favorite')) || []
+        const isFavorite = favorite.find(item => item.id === personaje.id)
+    
+        // Si el personaje que vemos ya esta en favoritos, se ejecuta el siguiente código
+        if (isFavorite) {
+            // Todos los personajes con favoritos, a excepcion del actual, pasan a una nueva array "newFavorite"
+            const newFavorite = favorite.filter(item => item.id !== personaje.id)
+            localStorage.setItem('favorite', JSON.stringify(newFavorite))
+            setFavorite(false)
+        } else {
+            // Si no esta en favoritos, sera añadido a la lista
+            favorite.push(personaje)
+            localStorage.setItem('favorite', JSON.stringify(favorite))
+            setFavorite(true)
+        }
+    }
+
+
+
     var { id } = useParams()
     useEffect(() => {
         const headers = {
@@ -57,7 +96,7 @@ const Character = () => {
     const handleFavoriteClick = () => {
         // Save the character ID in localStorage
         localStorage.setItem('favoriteCharacterId', id);
-        
+
 
     };
 
@@ -86,9 +125,22 @@ const Character = () => {
             </div>
             <aside className='character__aside'>
                 <h3 className="character__h3">{personaje.name}</h3>
-                <button onClick={handleFavoriteClick} className='character__favorite'>
+                {/* <button onClick={handleFavoriteClick} className='character__favorite'>
                     <img src={favorite} alt="Favorite" id='favorite' />
-                </button>
+                </button> */}
+                {user && (
+                    <div className='button-center'>
+                        {favorite ? (
+                            <button className='button' onClick={handleFavorite}>
+                                <img src={favoriteFull} alt="favoriteFull" id='favoritefull' />
+                            </button>
+                        ) : (
+                            <button className='button' onClick={handleFavorite}>
+                                <img src={favoriteEmpty} alt="Favorite" id='favorite' />
+                            </button>
+                        )}
+                    </div>
+                )}
                 <img src={`${personaje.image}`} alt="{personaje.name}" className='character__img' />
                 <div className="character__details">
                     <span className="details__tittle">Voiced by</span> <span>{personaje.voicedBy}</span>
