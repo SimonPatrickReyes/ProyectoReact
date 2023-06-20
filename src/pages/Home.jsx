@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Home = () => {
-    return <div>
+    return <main className='home'>
         <div className='home__presentation'>
         <h1 className='home__h1'>
             Welcome to our Bob's Burgers Fan Page!
@@ -28,7 +28,7 @@ const Home = () => {
         <img src="src\assets\images\home.png" alt="bobBurgersFamily" className='home__img' />
 
 
-    </div>
+    </main>
 }
 
 export default Home

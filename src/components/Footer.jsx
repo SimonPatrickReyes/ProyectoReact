@@ -21,7 +21,7 @@ const Footer = () => {
         <img src={youtube} alt="login button" className="socialMedia" />
         </Link>
 
-        <NavLink to="/contact" target="_blank" className="contactLink">
+        <NavLink to="/contact" className="contactLink">
                 Contacta con nosotros
         </NavLink>
 

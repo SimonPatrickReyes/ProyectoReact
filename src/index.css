@@ -803,10 +803,14 @@ padding-bottom: 3rem;
 
 }
 
+.profile{
+  margin-bottom: 80px;
+}
 
 .characters {
   flex-direction: column;
   display: flex;
+  margin-bottom: 80px;
 }
 
 .char__images {
@@ -1505,6 +1509,13 @@ padding-bottom: 3rem;
   border: #000000 1px solid;
 }
 
+.home{
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin-bottom: 80px;
+}
+
 .home__presentation{
   margin-top: 2rem;
   display: flex;
@@ -1517,6 +1528,8 @@ padding-bottom: 3rem;
 .home__img{
   display: flex;
   align-content: center;
+  height: 28rem;
+  padding-top: 3rem;
   margin: 0 auto;
 }
 

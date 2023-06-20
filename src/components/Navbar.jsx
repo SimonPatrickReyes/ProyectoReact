@@ -20,7 +20,7 @@ const Navbar = () => {
 
     return (
         <nav className="nav-pc">
-            <NavLink to="/" target="_blank">
+            <NavLink to="/" >
                 <img src={logo} className="logo" alt="logo" />
             </NavLink>
             <ul>
@@ -45,11 +45,11 @@ const Navbar = () => {
 
             </ul>
             {user ? (
-                <NavLink to="/profile" target="_blank">
+                <NavLink to="/profile">
                     <img src={userLogged.profileImage} alt="default profile" className="userPicture" />
                 </NavLink>
             ) : (
-                <NavLink to="/login" target="_blank">
+                <NavLink to="/login">
                     <img src={login_button} alt="login button" className="loginButton" />
                 </NavLink>
             )}

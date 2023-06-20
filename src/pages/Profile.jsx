@@ -53,7 +53,7 @@ const Profile = () => {
 
 
   return (
-    <div>
+    <main className='profile'>
       <h1 className='profile__h1' >My profile</h1>
       <div className='profileCard'>
         <h2>Profile Card</h2>
@@ -82,7 +82,7 @@ const Profile = () => {
           )
           )}
       </div>
-    </div>
+    </main>
   );
 };
 
