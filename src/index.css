@@ -276,16 +276,18 @@ header .nav-pc input {
   display: none;
 }
 
+
+
 footer {
   height: 70px;
   width: 100%;
   background-color: #000000;
   justify-content: center;
   align-items: center;
-  margin-top: 3.125rem;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   bottom: 0;
+  position: fixed;
 }
 
 @media (max-width: 1175px) {
@@ -372,6 +374,7 @@ body {
 
 main {
   display: flex;
+  margin-bottom: 3rem;
 }
 
 main .popular {
@@ -754,6 +757,52 @@ main a {
     margin-right: 6px;
   }
 }
+
+.paginacion{
+display: flex;
+flex-direction: row;
+margin: auto;
+padding-top: 2rem;
+padding-bottom: 3rem;
+}
+
+.previous{
+  background-color: #4CAF50; /* Green */
+  border-radius: 0.5rem;
+  border: none;
+  color: white;
+  padding: 6px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.next{
+  margin-left: 10rem;
+  background-color: #4CAF50; /* Green */
+  border-radius: 0.5rem;
+  border: none;
+  color: white;
+  padding: 6px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.previous:hover{
+  background-color: #39873c;
+
+}
+
+.next:hover{
+  background-color: #39873c;
+
+}
+
 
 .characters {
   flex-direction: column;
@@ -1456,7 +1505,36 @@ main a {
   border: #000000 1px solid;
 }
 
+.home__presentation{
+  margin-top: 2rem;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
 
+}
+
+.home__img{
+  display: flex;
+  align-content: center;
+  margin: 0 auto;
+}
+
+.home__img img{
+  margin: 0 auto;
+}
+
+.home__h1{
+  text-align: center;
+}
+
+.home__h2{
+  text-align: justify;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: auto;
+  padding-top: 2rem;
+}
 
 .selection__ul {
   display: flex;

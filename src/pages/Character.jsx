@@ -121,7 +121,7 @@ const Character = () => {
             <div className='character__divSpan'>
                 {favoriteMessage && <span className='character__span'>
                     <button onClick={() => setFavoriteMessage(false)} className='character__closeSpan'>✖</button>
-                    ¡No olvides guardar a tus personajes favoritos haciendo click en el corazon!</span>}
+                    Don't forget to log in to save your favorite characters by clicking on the heart!</span>}
             </div>
             <aside className='character__aside'>
                 <h3 className="character__h3">{personaje.name}</h3>

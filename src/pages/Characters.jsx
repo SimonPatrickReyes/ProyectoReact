@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Paginacion from '../components/Paginacion'
 import { Link } from 'react-router-dom'
-import { isInteger } from 'formik';
 
 
 const Characters = () => {
