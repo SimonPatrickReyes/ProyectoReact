@@ -32,7 +32,7 @@ const Profile = () => {
         userLogged.profileImage = profileImage;
         setUserLogged(userLogged)
         window.localStorage.setItem("user", JSON.stringify(userLogged));
-        location.reload()
+        //location.reload()
       };
       reader.readAsDataURL(file);
     }
@@ -43,7 +43,7 @@ const Profile = () => {
     setUser(false) //UserContext
     window.localStorage.removeItem("user")
     navigate('/')
-    location.reload()
+    //location.reload()
 
   };
 
@@ -82,7 +82,7 @@ const Profile = () => {
           favorites.map((favorite) => (
             <Link to={`/characters/${favorite.id}`} className='char__a'>
               <p className='char__names'>{favorite.name}</p>
-              <img src={`${favorite.image}`} alt="" class="paginacion_img" />
+              <img  key={Date.now()} src={`${favorite.image}`} alt="" class="paginacion_img" />
               <h3 className='char__h3'>{favorite.name}</h3>
             </Link>
           )

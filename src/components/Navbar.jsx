@@ -50,7 +50,7 @@ const Navbar = () => {
                         userLogged.profileImage=="default"? (
                             <img src={userPicture} alt="default profile" className="userPicture" />
                         ):(
-                            <img src={userLogged.profileImage} alt="default profile" className="userPicture" />
+                            <img src={userLogged.profileImage} alt="image profile" className="userPicture" />
                         )
                     }
                     
