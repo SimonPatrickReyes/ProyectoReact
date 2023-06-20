@@ -2,7 +2,7 @@ import { useContext,useState} from "react";
 import { UserContext } from "../contexts/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
-
+import userPicture from "../assets/images/userPicture.png";
 //----<NavLink> == <a>
 //----<NavLink to="<path-escrito-en-router/index.jsx>">
 
@@ -13,7 +13,7 @@ import login_button from "../assets/images/login_button.png";
 const Navbar = () => {
     const [userLogged, setUserLogged] = useState(JSON.parse(localStorage.getItem('user')) || [])
     const { user, setUser } = useContext(UserContext)
-
+    
     const navigate = useNavigate()
 
     
@@ -46,7 +46,14 @@ const Navbar = () => {
             </ul>
             {user ? (
                 <NavLink to="/profile">
-                    <img src={userLogged.profileImage} alt="default profile" className="userPicture" />
+                    {
+                        userLogged.profileImage=="default"? (
+                            <img src={userPicture} alt="default profile" className="userPicture" />
+                        ):(
+                            <img src={userLogged.profileImage} alt="default profile" className="userPicture" />
+                        )
+                    }
+                    
                 </NavLink>
             ) : (
                 <NavLink to="/login">

@@ -4,7 +4,7 @@ import {NavLink } from 'react-router-dom';
 const Register = () => {
     const [formSend, changeFormSend] = useState(false)
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || [])
-    const userPicture="/src/assets/images/userPicture.png"
+    const userPicture="default"
 
     const emailEnUso = (email) => {
         console.log(email)

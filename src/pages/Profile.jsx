@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { Link } from 'react-router-dom';
-
+import userPicture from "../assets/images/userPicture.png";
 
 
 const Profile = () => {
@@ -59,7 +59,13 @@ const Profile = () => {
         <h2>Profile Card</h2>
         <div className='profileCard__content'>
           <div className='profileCard__picture'>
-            <img src={userLogged.profileImage} alt="Profile Image" className='profilePicture' />
+            {
+              userLogged.profileImage=="default"? (
+                  <img src={userPicture} alt="default profile" className="profilePicture" />
+              ):(
+                  <img src={userLogged.profileImage} alt="default profile" className="profilePicture" />
+              )
+            }
             <label for="profilePicture" className='subirImagen'>Cambia tu imagen de perfil</label>
             <input id="profilePicture" type="file" accept=".png" className="subirImagen__input" onChange={handleProfileImageChange} />
           </div>
