@@ -1,7 +1,7 @@
 import React, { useState, useContext  } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { UserContext } from '../contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
+import {NavLink, useNavigate } from 'react-router-dom';
 import userPicture from "../assets/images/userPicture.png"
 
 
