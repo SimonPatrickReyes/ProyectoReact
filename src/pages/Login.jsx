@@ -86,7 +86,9 @@ const Login = () => {
             <button type="submit">Log in</button>
             {formSend && <span className='login__span'>Successfully logged</span>}
             {failed && <span>Check again your credentials</span>}
-            <a href="http://localhost:5173/register">Not registered yet?</a>
+            <NavLink to="/register" className="btn btn-outline-primary">
+                        <p className="nav-pc__p">Not registered yet?</p>
+                    </NavLink>
           </Form>
         )}
       </Formik>

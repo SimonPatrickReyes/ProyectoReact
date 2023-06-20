@@ -116,7 +116,9 @@ const Register = () => {
                         </div>
                         <button type="submit">Register</button>
                         {formSend && <span className='login__span'>Successfully registered</span>}
-                        <a href="http://localhost:5173/login">Have you an account already?</a>
+                        <NavLink to="/login" className="btn btn-outline-primary">
+                        <p className="nav-pc__p">Have you an account already?</p>
+                    </NavLink>
                     </Form>
                 )}
             </Formik>
