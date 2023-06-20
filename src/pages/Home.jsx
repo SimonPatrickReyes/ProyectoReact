@@ -1,4 +1,5 @@
 import React from 'react'
+import img from "../assets/images/home.png";
 
 const Home = () => {
     return <main className='home'>
@@ -25,7 +26,7 @@ const Home = () => {
         </h2>
         
         </div>
-        <img src="src\assets\images\home.png" alt="bobBurgersFamily" className='home__img' />
+        <img src={img} alt="bobBurgersFamily" className='home__img' />
 
 
     </main>
